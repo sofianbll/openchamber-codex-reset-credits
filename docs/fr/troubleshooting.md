@@ -31,7 +31,7 @@ les verrous en mémoire peuvent disparaître sans résoudre le résultat distant
 ## Un compte manque dans la sidebar
 
 Ouvrez le panneau complet. Mini masque les comptes indisponibles par défaut, et la
-limite de comptes peut en masquer d’autres. Vérifiez le résumé ambre, **+N autres**
+limite de comptes peut en masquer d’autres. Vérifiez **+N autres**
 et les réglages de la roue dentée. Ces préférences ne suppriment aucun compte et
 ne les masquent pas dans le panneau complet.
 

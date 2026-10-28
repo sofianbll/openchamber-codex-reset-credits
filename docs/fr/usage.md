@@ -11,8 +11,9 @@ Ouvrez **Codex resets** dans le rail pour le panneau complet, ou sa section dans
   afficher ou masquer ses détails ; les en-têtes de compte ne se replient pas.
 
 Le sélecteur du panneau change seulement sa vue courante. La roue dentée règle
-séparément la **vue sidebar** et le **panneau par défaut**. **Voir le panneau**
-applique ce défaut, pas la dernière vue temporaire. Work Status n’a pas de menu
+séparément la **vue sidebar** et le **panneau par défaut**. L’icône de panneau
+dans la sidebar ouvre cette vue par défaut, pas la dernière vue temporaire.
+Refermez le panneau avec les contrôles natifs d’OpenChamber. Work Status n’a pas de menu
 de réglages. Les libellés suivent la langue française ou anglaise de l’hôte ; les
 titres et descriptions des crédits restent tels que Codex les renvoie.
 
@@ -35,13 +36,9 @@ complet n’est pas filtré et garde son ordre de comptes.
 
 ![Sidebar Mini avec des comptes fictifs et leurs tickets compacts](/screenshots/sidebar-mini.png)
 
-Un résumé en haut de la section totalise les crédits disponibles des comptes
-lisibles, indépendamment de la limite sidebar. Un indicateur ambre signale les
-comptes indisponibles masqués ; une disponibilité inconnue n’est pas zéro, et un
-total partiel est expliqué au survol. OpenChamber ne permet pas aux extensions de
-décorer l’en-tête d’une section repliée : le résumé n’apparaît que section ouverte.
-
-![Résumé de la sidebar : crédits disponibles et comptes indisponibles](/screenshots/sidebar-summary.png)
+La sidebar reste limitée aux comptes et à leurs tickets. Deux petites icônes en
+bas à droite actualisent les données et ouvrent le panneau complet, sans libellé
+ni ligne de résumé supplémentaire.
 
 ## Lire, confirmer, vérifier
 

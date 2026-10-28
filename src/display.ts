@@ -1,4 +1,4 @@
-import { canRedeem, isRecord, type AccountSnapshot, type Snapshot } from './contracts.ts';
+import { canRedeem, isRecord, type AccountSnapshot } from './contracts.ts';
 
 export const VIEWS = ['compact', 'tickets', 'mini'] as const;
 export type View = typeof VIEWS[number];
@@ -22,14 +22,4 @@ export function sidebarAccounts(accounts: readonly AccountSnapshot[], prefs: Dis
     .sort((a, b) => rank(a) - rank(b));
   const extra = prefs.limit === null ? 0 : Math.max(0, ordered.length - prefs.limit);
   return { accounts: showAll || prefs.limit === null ? ordered : ordered.slice(0, prefs.limit), extra };
-}
-
-/** Totals ignore the sidebar limit; partial distinguishes unknown availability from a known zero. */
-export function computeSummary(snapshot: Snapshot | null, prefs: DisplayPreferences, now = Date.now()): { unavailable: number; available: number; partial: boolean } {
-  const counts = snapshot?.accounts.map(account => availableCount(account, now));
-  return {
-    unavailable: prefs.sidebar === 'mini' && !prefs.showUnavailable ? snapshot?.accounts.filter(account => account.error).length ?? 0 : 0,
-    available: counts?.reduce<number>((total, count) => total + (count ?? 0), 0) ?? 0,
-    partial: counts?.includes(null) ?? true,
-  };
 }

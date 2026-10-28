@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Remove the sidebar summary pills and labels; keep only accounts and tickets.
+- Replace Refresh and View panel text buttons with compact icons. In the full
+  panel, Refresh sits beside the settings gear.
+
 ## 0.1.0 — 2026-10-28
 
 First public release.

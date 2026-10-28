@@ -11,8 +11,9 @@ section for the sidebar. Both use the same accounts, credits and service.
   Mini account headers do not collapse.
 
 The full-width panel switch changes only the current panel view. Open the gear
-to set the **sidebar view** and **default panel view** separately. **View panel**
-opens with the default, not the last temporary view. There is no settings menu
+to set the **sidebar view** and **default panel view** separately. The sidebar’s
+panel icon opens with that default, not the last temporary view. Close the panel
+with OpenChamber’s native controls. There is no settings menu
 inside Work Status. UI labels follow the host’s English/French locale; credit
 titles and descriptions stay as Codex returns them.
 
@@ -35,13 +36,9 @@ and retains its account order.
 
 ![Mini sidebar with fictional accounts and compact credit tickets](/screenshots/sidebar-mini.png)
 
-A summary at the top of the section counts available credits across readable
-accounts, regardless of the sidebar limit. An amber indicator flags hidden
-unavailable accounts; unknown availability is not zero, and a partial total is
-explained on hover. OpenChamber does not let extensions decorate a collapsed
-section header, so the summary appears only while the section is expanded.
-
-![Codex resets sidebar summary with available-credit and unavailable-account indicators](/screenshots/sidebar-summary.png)
+The sidebar stays limited to accounts and their tickets. Two small icons at the
+bottom right refresh the data and open the full panel, without adding labels or
+a separate summary row.
 
 ## Read, confirm, verify
 

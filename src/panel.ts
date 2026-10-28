@@ -3,7 +3,7 @@ import { applyHostReady, mountButton, type ButtonHandle, type ButtonProps } from
 import { canRedeem, isRecord, parseCredits, type AccountSnapshot, type Credit, type Snapshot } from './contracts.ts';
 import { messages } from './i18n.ts';
 import { icon, installIcons, type IconName } from './icons.ts';
-import { availableCount, computeSummary, defaultPreferences, parsePreferences, sidebarAccounts, VIEWS, type DisplayPreferences, type View } from './display.ts';
+import { availableCount, defaultPreferences, parsePreferences, sidebarAccounts, VIEWS, type DisplayPreferences, type View } from './display.ts';
 
 const host = connectHost();
 const root = document.querySelector<HTMLElement>('#root')!;
@@ -437,22 +437,12 @@ function panelControls() {
     element.onclick = () => { mode = view; open = null; render(); focus(`mode:${view}`); };
     modes.append(element);
   }
-  return h('div', 'panel-controls', h('div', 'settings-bar', gear, settings), modes);
-}
-
-function summaryBar(summary: ReturnType<typeof computeSummary>) {
-  const bar = h('div', 'summary');
-  if (summary.unavailable) {
-    const pill = h('span', 'summary-pill warn', h('i'), String(summary.unavailable));
-    pill.title = `${summary.unavailable} ${summary.unavailable === 1 ? t.unavailableAccount : t.unavailableAccounts}`;
-    pill.setAttribute('role', 'img'); pill.setAttribute('aria-label', pill.title); bar.append(pill);
-  }
-  const unknown = summary.available === 0 && summary.partial;
-  const tickets = h('span', `summary-pill${unknown || !summary.available ? ' empty' : ''}`, icon('ticket'), unknown ? '?' : String(summary.available));
-  tickets.title = (unknown ? t.unknownResets : `${summary.available} ${summary.available === 1 ? t.availableReset : t.availableResets}`) +
-    (summary.partial ? ` · ${t.partialTotal}` : '');
-  tickets.setAttribute('role', 'img'); tickets.setAttribute('aria-label', tickets.title); bar.append(tickets);
-  return bar;
+  const refreshButton = h('button', 'settings-toggle', icon('reset'));
+  refreshButton.type = 'button'; refreshButton.dataset.focus = 'refresh';
+  refreshButton.title = t.refresh; refreshButton.setAttribute('aria-label', t.refresh);
+  refreshButton.disabled = loading || !!confirmation || !!pending;
+  refreshButton.onclick = () => void refresh(true);
+  return h('div', 'panel-controls', h('div', 'settings-bar', refreshButton, gear, settings), modes);
 }
 
 function render() {
@@ -474,18 +464,23 @@ function render() {
     if (selection.extra) view.append(toggle('accounts-more', showAllAccounts, 'accounts-more', () => { showAllAccounts = !showAllAccounts; },
       showAllAccounts ? t.reduceAccounts : `+${selection.extra} ${selection.extra === 1 ? t.moreAccount : t.moreAccounts}`, icon('chevron')));
   }
-  // OpenChamber 2.5 unmounts collapsed sections and offers no header badge slot, so the summary leads the body.
-  if (status && snapshot?.accounts.length) view.prepend(summaryBar(computeSummary(snapshot, preferences)));
-  const footer = h('div', 'footer');
-  button(footer, { label: t.refresh, variant: 'ghost', loading, disabled: !!confirmation || !!pending, onClick: () => void refresh(true) }, 'refresh');
   if (status) {
-    const link = h('button', 'view-panel', t.viewPanel); link.type = 'button'; link.dataset.focus = 'view-panel';
-    link.onclick = () => { void host.openSurface('plugin:codex-reset-credits').catch(() => undefined); }; footer.append(link);
+    const footer = h('div', 'footer status-footer');
+    const refreshButton = h('button', 'status-action', icon('reset'));
+    refreshButton.type = 'button'; refreshButton.dataset.focus = 'refresh';
+    refreshButton.title = t.refresh; refreshButton.setAttribute('aria-label', t.refresh);
+    refreshButton.disabled = loading || !!confirmation || !!pending;
+    refreshButton.onclick = () => void refresh(true);
+    const link = h('button', 'status-action', icon('panel'));
+    link.type = 'button'; link.dataset.focus = 'view-panel';
+    link.title = t.viewPanel; link.setAttribute('aria-label', t.viewPanel);
+    link.onclick = () => { void host.openSurface('plugin:codex-reset-credits').catch(() => undefined); };
+    footer.append(refreshButton, link); view.append(footer);
   } else {
     if (snapshot) view.append(h('p', 'footnote', `${t.updated}: ${date(snapshot.fetchedAt)}`));
     view.append(h('p', 'footnote', t.footnote));
   }
-  view.append(footer); root.replaceChildren(view);
+  root.replaceChildren(view);
   if (previousFocus) focus(previousFocus);
 }
 

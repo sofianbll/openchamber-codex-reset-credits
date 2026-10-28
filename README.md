@@ -32,9 +32,8 @@ connected in OpenCode. No account switching, extra sign-in or automatic redempti
   first, then accounts with available resets, readable accounts without resets,
   and unavailable accounts. Its limit applies after filtering and sorting;
   **+N others** reveals the rest. These preferences do not filter or reorder the
-  full panel. A summary at the top of the section totals readable credits
-  independently of the sidebar limit and flags incomplete totals and hidden
-  unavailable accounts.
+  full panel. The sidebar stays limited to accounts and their tickets, with two
+  small icons to refresh and open the full panel.
 - **Confirm before using.** An inline confirmation names the account and credit.
   The service checks availability again before sending a consumption request.
   Expired, used and unknown-status credits cannot be redeemed.
@@ -42,8 +41,7 @@ connected in OpenCode. No account switching, extra sign-in or automatic redempti
 ![Tickets view with reset-credit details for fictional accounts](docs/public/screenshots/panel-tickets.png)
 
 [Display settings](docs/public/screenshots/panel-settings.png) ·
-[Mini sidebar](docs/public/screenshots/sidebar-mini.png) ·
-[Sidebar summary](docs/public/screenshots/sidebar-summary.png)
+[Mini sidebar](docs/public/screenshots/sidebar-mini.png)
 
 ## Install from GitHub
 

@@ -13,6 +13,7 @@ export const ICONS = {
   login: '<path d="M14 4.5h3.5a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H14"/><path d="m10 16 4-4-4-4"/><path d="M14 12H4.5"/>',
   user: '<circle cx="12" cy="8.5" r="3.5"/><path d="M5.5 19.5a6.5 6.5 0 0 1 13 0"/>',
   chevron: '<path d="m9.5 6.5 5.5 5.5-5.5 5.5"/>',
+  panel: '<rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M14.5 4.5v15"/>',
   settings: '<path d="m9.5 3.5-.6 2.3-2 .9-2.2-.6-2.5 4.3L4 12l-1.8 1.6 2.5 4.3 2.2-.6 2 .9.6 2.3h5l.6-2.3 2-.9 2.2.6 2.5-4.3L20 12l1.8-1.6-2.5-4.3-2.2.6-2-.9-.6-2.3Z"/><circle cx="12" cy="12" r="3"/>',
   close: '<path d="m6 6 12 12M18 6 6 18"/>',
   // The logo's ticket and reset arrow, for illustrations.

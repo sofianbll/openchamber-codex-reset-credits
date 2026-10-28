@@ -29,7 +29,7 @@ can disappear without resolving the upstream result. [Safety details](privacy.md
 ## An account is missing from the sidebar
 
 Open the full panel. Mini hides unavailable accounts by default, and an account
-limit can hide others. Check the amber summary, **+N others**, and the panel’s gear
+limit can hide others. Check **+N others** and the panel’s gear
 settings. These sidebar preferences do not remove accounts or hide them in the full panel.
 
 ## A credit has no expiry

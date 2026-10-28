@@ -10,7 +10,7 @@ const text = computed(() => french.value ? {
   intro: 'Consultez les crédits des comptes ChatGPT déjà connectés dans OpenCode. Gardez-les à portée de main dans OpenChamber, sans changer de compte.',
   install: 'Installer l’extension', usage: 'Lire le guide',
   alt: 'Panneau Codex resets en vue Compact avec des comptes et crédits fictifs',
-  sidebarAlt: 'Section Work Status en vue Mini avec le résumé des tickets et des comptes fictifs',
+  sidebarAlt: 'Section Work Status en vue Mini avec des comptes fictifs et les icônes d’action',
   caption: 'Un panneau complet et une section Work Status. Données fictives dans un aperçu isolé.',
   points: [
     ['La bonne vue', 'Compact, Tickets ou Mini. Réglez le panneau et la sidebar séparément.', 'usage'],
@@ -24,7 +24,7 @@ const text = computed(() => french.value ? {
   intro: 'See the credits of the ChatGPT accounts already connected in OpenCode. Keep them close in OpenChamber, without switching accounts.',
   install: 'Install the extension', usage: 'Read the guide',
   alt: 'Codex resets panel in Compact view with fictional accounts and credits',
-  sidebarAlt: 'Work Status section in Mini view with the ticket summary and fictional accounts',
+  sidebarAlt: 'Work Status section in Mini view with fictional accounts and compact action icons',
   caption: 'A full panel and a Work Status section. Fictional data in an isolated preview.',
   points: [
     ['The right view', 'Compact, Tickets or Mini. Set the panel and sidebar views separately.', 'usage'],
