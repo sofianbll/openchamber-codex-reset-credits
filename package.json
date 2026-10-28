@@ -1,0 +1,46 @@
+{
+  "name": "openchamber-codex-reset-credits",
+  "version": "0.1.0",
+  "description": "View and redeem Codex reset credits for the ChatGPT accounts already connected in OpenCode.",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "openchamber": {
+    "apiVersion": 1,
+    "engines": { "openchamber": ">=2.5.0" },
+    "contributes": {
+      "panel": {
+        "id": "codex-reset-credits",
+        "name": "Codex resets",
+        "icon": "refresh",
+        "entry": "panel/index.html"
+      },
+      "statusSection": {
+        "entry": "panel/index.html",
+        "title": "Codex resets",
+        "height": 180,
+        "defaultExpanded": true
+      },
+      "service": {
+        "entry": "service/main.js",
+        "runtime": "host",
+        "permissions": { "exec": ["sqlite3"] }
+      }
+    }
+  },
+  "scripts": {
+    "build": "bun scripts/build.ts",
+    "test": "bun test tests",
+    "typecheck": "tsc --noEmit",
+    "preview": "bun tests/preview.ts",
+    "package": "bun package.ts",
+    "docs:build": "vitepress build docs",
+    "docs:dev": "vitepress dev docs"
+  },
+  "devDependencies": {
+    "@openchamber/sdk": "2.5.3",
+    "@types/bun": "^1.4.2",
+    "typescript": "~5.9.3",
+    "vitepress": "1.6.4"
+  }
+}

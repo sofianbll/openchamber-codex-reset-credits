@@ -1,0 +1,46 @@
+name: Release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24.14.0'
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+        with:
+          bun-version: 1.4.3
+      - run: bun install --frozen-lockfile --ignore-scripts
+      - name: Verify version and checks
+        run: |
+          test "$GITHUB_REF_NAME" = "v$(bun -p 'require("./package.json").version')"
+          bun test
+          bun run typecheck
+      - name: Build and verify archive
+        run: |
+          bun run package "$RUNNER_TEMP/openchamber-codex-reset-credits-${GITHUB_REF_NAME#v}"
+          git ls-files --error-unmatch panel/main.js service/main.js
+          git diff --exit-code -- panel/main.js service/main.js
+          bun tests/package.ts "$RUNNER_TEMP/openchamber-codex-reset-credits-${GITHUB_REF_NAME#v}"
+      - name: Extract this version's release notes
+        run: |
+          awk -v version="${GITHUB_REF_NAME#v}" '/^## / { if (found) exit; if ($2 == version) { found=1; next } } found { print } END { if (!found) exit 1 }' CHANGELOG.md > "$RUNNER_TEMP/release-notes.md"
+          test -s "$RUNNER_TEMP/release-notes.md"
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          gh release create "$GITHUB_REF_NAME"
+          "$RUNNER_TEMP/openchamber-codex-reset-credits-${GITHUB_REF_NAME#v}.tar.gz"
+          "$RUNNER_TEMP/openchamber-codex-reset-credits-${GITHUB_REF_NAME#v}.tar.gz.sha256"
+          --verify-tag
+          --title "Codex resets $GITHUB_REF_NAME"
+          --notes-file "$RUNNER_TEMP/release-notes.md"
