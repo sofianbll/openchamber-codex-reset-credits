@@ -25,7 +25,7 @@ async function database() {
   return path;
 }
 
-function insert(path: string, id: string, integration: string, active: number, value: object, time: number) {
+function insert(path: string, id: string, integration: string, active: number | null, value: object, time: number) {
   const db = new Database(path);
   db.run('INSERT INTO credential VALUES (?, ?, ?, ?, ?, ?)', [id, `Label ${id}`, active, integration, JSON.stringify(value), time]);
   db.close();
@@ -72,6 +72,15 @@ test('reads active and inactive OpenAI OAuth credentials without sqlite3 on PATH
   ]);
   expect(JSON.stringify(accounts)).not.toContain('synthetic-refresh-never-return');
   expect(await readFile(path)).toEqual(before);
+});
+
+test('credentials without an active flag are read as inactive', async () => {
+  const path = await database();
+  // A credential imported from a legacy auth.json keeps `active` unset instead of 0 or 1.
+  insert(path, 'legacy', 'openai', null, { type: 'oauth', access: 'synthetic-legacy' }, 1);
+  expect(await readAccounts(path)).toEqual([
+    { id: 'legacy', label: 'Label legacy', active: false, access: 'synthetic-legacy', accountID: null },
+  ]);
 });
 
 test('invalid credentials and database failures are sanitized', async () => {

@@ -72,7 +72,7 @@ import { join } from "node:path";
 import { promisify } from "node:util";
 var exec = promisify(execFile);
 var defaultDatabase = join(homedir(), ".local", "share", "opencode", "opencode.db");
-var query = `SELECT id, label, active,
+var query = `SELECT id, label, COALESCE(active, 0) AS active,
   json_extract(value, '$.access') AS access,
   json_extract(value, '$.metadata.accountID') AS accountID
   FROM credential

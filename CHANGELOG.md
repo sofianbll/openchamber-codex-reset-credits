@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Read OpenAI OAuth credentials whose `active` flag is unset (`NULL`) as inactive
+  instead of failing with `DATABASE_SCHEMA`. OpenCode leaves the flag unset for
+  credentials imported from a legacy `auth.json`.
+
 ## 0.1.1 — 2026-11-16
 
 - Use integrated SQLite instead of requiring an external `sqlite3` executable.

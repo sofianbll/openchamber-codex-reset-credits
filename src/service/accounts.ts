@@ -11,7 +11,8 @@ type Execute = (file: string, args: string[], options: ExecFileOptionsWithString
 export const defaultDatabase = join(homedir(), '.local', 'share', 'opencode', 'opencode.db');
 
 // Do not select the value blob: it also contains refresh tokens we do not need.
-const query = `SELECT id, label, active,
+// `active` is nullable: credentials imported from a legacy auth.json keep it unset, which OpenCode reads as inactive.
+const query = `SELECT id, label, COALESCE(active, 0) AS active,
   json_extract(value, '$.access') AS access,
   json_extract(value, '$.metadata.accountID') AS accountID
   FROM credential
